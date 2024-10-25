@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Shopping app</string>
+    <string name="logIn"><u>Log in here</u></string>
+    <string name="register"><u>Register</u></string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="oldprice"><strike>59000 so\'m</strike></string>
+    <string name="newPrice">36000 so\'m</string>
+    <string name="oldPriceInCategory"><strike>26000 so\'m</strike></string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splash">
+
+    <fragment
+        android:id="@+id/splash"
+        android:name="uz.gita.shoppingapp.screens.splash.Splash"
+        tools:layout="@layout/splash_screen"
+        android:label="Splash" >
+        <action
+            android:id="@+id/action_splash_to_bottomMenu"
+            app:destination="@id/bottomMenu" />
+        <action
+            android:id="@+id/action_splash_to_registerScreen"
+            app:destination="@id/registerScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerScreen"
+        android:name="uz.gita.shoppingappforexam.screens.auth.register.RegisterScreen"
+        tools:layout="@layout/register_screen"
+        android:label="RegisterScreen" >
+        <action
+            android:id="@+id/action_registerScreen_to_bottomMenu"
+            app:destination="@id/bottomMenu" />
+        <action
+            android:id="@+id/action_registerScreen_to_loginScreen"
+            app:destination="@id/loginScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginScreen"
+        tools:layout="@layout/login_screen"
+        android:name="uz.gita.shoppingapp.screens.auth.login.LoginScreen"
+        android:label="LoginScreen" >
+        <action
+            android:id="@+id/action_loginScreen_to_bottomMenu"
+            app:destination="@id/bottomMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/bottomMenu"
+        android:name="uz.gita.shoppingapp.screens.bottom_menu.BottomMenu"
+        android:label="BottomMenu"
+        tools:layout="@layout/bottom_main"/>
+</navigation>
