@@ -9,7 +9,11 @@
         android:id="@+id/home"
         android:name="uz.gita.shoppingapp.screens.home.HomeScreen"
         android:label="home_screen"
-        tools:layout="@layout/home_screen" />
+        tools:layout="@layout/home_screen" >
+        <action
+            android:id="@+id/action_home_to_favouriteScreen"
+            app:destination="@id/favouriteScreen" />
+    </fragment>
     <fragment
         android:id="@+id/catalog"
         android:name="uz.gita.shoppingapp.screens.catalog.CatalogScreen"
@@ -25,4 +29,13 @@
         android:name="uz.gita.shoppingapp.screens.cart.CartScreen"
         android:label="cart_screen"
         tools:layout="@layout/cart_screen" />
+    <fragment
+        android:id="@+id/favouriteScreen"
+        android:name="uz.gita.shoppingapp.screens.favourite.FavouriteScreen"
+        android:label="screen_favourite"
+        tools:layout="@layout/screen_favourite" >
+        <action
+            android:id="@+id/action_favouriteScreen_to_home"
+            app:destination="@id/home" />
+    </fragment>
 </navigation>

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import uz.gita.shoppingapp.R
 import uz.gita.shoppingapp.databinding.BottomMainBinding
@@ -20,10 +22,17 @@ class BottomMenu: Fragment(R.layout.bottom_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            })
 
         val navHostFragment = childFragmentManager.findFragmentById(R.id.fragmentContainerViewBottom) as NavHostFragment
         val navController = navHostFragment.navController
 
         NavigationUI.setupWithNavController(binding.bottom, navController)
+
     }
 }

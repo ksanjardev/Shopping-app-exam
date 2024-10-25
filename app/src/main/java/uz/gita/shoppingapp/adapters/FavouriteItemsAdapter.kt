@@ -1,5 +1,6 @@
 package uz.gita.shoppingapp.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,31 +8,31 @@ import uz.gita.shoppingapp.R
 import uz.gita.shoppingapp.data.entity.HomeItemVertical
 import uz.gita.shoppingapp.databinding.ItemHomeVerticalBinding
 
-class HomeItemVerticalAdapter : RecyclerView.Adapter<HomeItemVerticalAdapter.Holder>() {
+class FavouriteItemsAdapter : RecyclerView.Adapter<FavouriteItemsAdapter.Holder>() {
     private val ls: ArrayList<HomeItemVertical> = arrayListOf()
-    private var favouriteListener: ((Int, Int) -> Unit)? = null
-    private var cartListener: ((Int, Int) -> Unit)? = null
+    private var favouriteItemListener: ((HomeItemVertical) -> Unit)? = null
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(item: ArrayList<HomeItemVertical>) {
         ls.clear()
         ls.addAll(item)
+        notifyDataSetChanged()
     }
 
     inner class Holder(private val binding: ItemHomeVerticalBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.addToCartButton.setOnClickListener {
-                ls[adapterPosition].cart = ls[adapterPosition].cart.xor(1)
-                cartListener?.invoke(ls[adapterPosition].id, ls[adapterPosition].favourite)
-                notifyItemChanged(adapterPosition)
-            }
             binding.favouriteButton.setOnClickListener {
-                ls[adapterPosition].favourite = ls[adapterPosition].favourite.xor(1)
-                favouriteListener?.invoke(ls[adapterPosition].id, ls[adapterPosition].favourite)
-                notifyItemChanged(adapterPosition)
-            }
 
+                if (ls[adapterPosition].favourite == 1) {
+                    binding.favouriteButton.setImageResource(R.drawable.unchecked_like_ic)
+                    favouriteItemListener?.invoke(ls[adapterPosition])
+                    ls.removeAt(adapterPosition)
+                    notifyItemRemoved(adapterPosition)
+                }
+
+            }
         }
 
         fun bind() {
@@ -41,14 +42,8 @@ class HomeItemVerticalAdapter : RecyclerView.Adapter<HomeItemVerticalAdapter.Hol
             binding.newPrice.text = ls[adapterPosition].newPrice.toString()
             binding.monthlyPayment.text = ls[adapterPosition].monthlyPayment.toString()
 
-            binding.favouriteButton.setImageResource(
-                if (ls[adapterPosition].favourite == 0) R.drawable.unchecked_like_ic
-                else R.drawable.checked_like_ic
-            )
-            binding.addToCartButton.setImageResource(
-                if (ls[adapterPosition].cart == 0) R.drawable.unchecked_cart_ic
-                else R.drawable.checked_cart_ic
-            )
+            if (ls[adapterPosition].favourite == 1) binding.favouriteButton.setImageResource(R.drawable.checked_like_ic)
+            else binding.favouriteButton.setImageResource(R.drawable.unchecked_like_ic)
         }
     }
 
@@ -62,11 +57,7 @@ class HomeItemVerticalAdapter : RecyclerView.Adapter<HomeItemVerticalAdapter.Hol
         holder.bind()
     }
 
-    fun setFavouriteListener(block: (Int, Int) -> Unit) {
-        favouriteListener = block
-    }
-
-    fun setCartListener(block: (Int, Int) -> Unit) {
-        cartListener = block
+    fun setFavouriteItemListener(block: (HomeItemVertical) -> Unit) {
+        favouriteItemListener = block
     }
 }

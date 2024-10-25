@@ -1,10 +1,23 @@
 package uz.gita.shoppingapp.screens.home
 
-class HomePresenter(val view: HomeContract.View):HomeContract.Presenter {
-    private val model: HomeContract.Model = HomeModel()
+import uz.gita.shoppingapp.data.entity.HomeItemVertical
 
-    init {
+class HomePresenter(val view: HomeContract.View) : HomeContract.Presenter {
+    private val model: HomeContract.Model = HomeModel()
+    override fun updateFavouriteData(id: Int, itemVertical: Int) {
+        model.updateFavouriteData(id, itemVertical)
+    }
+
+    override fun updateCartData(id:Int, itemVertical: Int) {
+        model.updateCartData(id, itemVertical)
+    }
+
+    override fun getAllItem() {
         view.showAllItem(model.getAllItem())
+    }
+
+    override fun favouriteItemClick() {
+        view.showFavouriteScreen()
     }
 
 }

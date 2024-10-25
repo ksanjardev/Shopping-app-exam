@@ -8,4 +8,12 @@ class HomeModel:HomeContract.Model {
     override fun getAllItem(): ArrayList<HomeItemVertical> {
         return itemVertical.getAllItem() as ArrayList
     }
+
+    override fun updateFavouriteData(id: Int, itemVertical: Int) {
+        this.itemVertical.updateFavourite(id, itemVertical)
+    }
+
+    override fun updateCartData(id:Int, itemVertical: Int) {
+        this.itemVertical.updateCart(id, itemVertical)
+    }
 }
