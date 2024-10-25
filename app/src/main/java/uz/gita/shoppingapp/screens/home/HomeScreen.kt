@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import uz.gita.shoppingapp.R
 import uz.gita.shoppingapp.adapters.HomeHorizontalItemAdapter
+import uz.gita.shoppingapp.adapters.HomeItemVerticalAdapter
+import uz.gita.shoppingapp.data.entity.HomeItemVertical
 import uz.gita.shoppingapp.databinding.HomeScreenBinding
 
 class HomeScreen : Fragment(), HomeContract.View {
@@ -24,6 +27,7 @@ class HomeScreen : Fragment(), HomeContract.View {
 
     private lateinit var presenter: HomeContract.Presenter
     private lateinit var horizontalItemAdapter: HomeHorizontalItemAdapter
+    private lateinit var verticalItemAdapter: HomeItemVerticalAdapter
     private lateinit var binding: HomeScreenBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -37,6 +41,14 @@ class HomeScreen : Fragment(), HomeContract.View {
         horizontalItemAdapter = HomeHorizontalItemAdapter()
         binding.pager.adapter = horizontalItemAdapter
         horizontalItemAdapter.submitList(list)
+
+        verticalItemAdapter = HomeItemVerticalAdapter()
+        binding.verticalRecyclerView.adapter = verticalItemAdapter
+        binding.verticalRecyclerView.layoutManager = GridLayoutManager(context, 2)
+    }
+
+    override fun showAllItem(homeItemVertical: ArrayList<HomeItemVertical>) {
+        verticalItemAdapter.submitList(homeItemVertical)
     }
 
 }
