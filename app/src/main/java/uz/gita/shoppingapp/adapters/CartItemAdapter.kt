@@ -1,19 +1,19 @@
 package uz.gita.shoppingapp.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import uz.gita.shoppingapp.R
 import uz.gita.shoppingapp.data.entity.HomeItemVertical
 import uz.gita.shoppingapp.databinding.ItemCartBinding
+
 
 class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.Holder>() {
     private val ls: ArrayList<HomeItemVertical> = arrayListOf()
     private var countMinus: ((HomeItemVertical) -> Unit)? = null
     private var countPlus: ((HomeItemVertical) -> Unit)? = null
-    private var likeState: ((HomeItemVertical) -> Unit)? = null
+    private var listener: (() -> Unit)? = null
     private var favouriteListener: ((HomeItemVertical) -> Unit)? = null
 
     fun submitList(item: List<HomeItemVertical>) {
@@ -25,19 +25,17 @@ class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.Holder>() {
     inner class Holder(private val binding: ItemCartBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            binding.likeButtonCart.setOnClickListener {
-                ls[adapterPosition].favourite = ls[adapterPosition].favourite.xor(1)
-                favouriteListener?.invoke(ls[adapterPosition])
-                notifyItemChanged(adapterPosition)
-            }
-        }
+
+
 
         @SuppressLint("NotifyDataSetChanged")
         fun bind(product: HomeItemVertical) {
 
             binding.imageCart.setImageResource(product.image)
-            binding.oldpriceCart.text = product.oldPrice.toString()
+            binding.oldPriceCart.text = product.oldPrice.toString()
+            binding.oldPriceCart.paintFlags = binding.oldPriceCart.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            binding.oldPriceText.paintFlags = binding.oldPriceText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
             binding.newPriceCart.text = product.newPrice.toString()
             binding.monthlyPaymentCart.text = (product.newPrice / 12).toString()
             binding.itemDescription.text = product.itemDescription
@@ -51,19 +49,14 @@ class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.Holder>() {
             }
             binding.minusProduct.setOnClickListener {
                 val count = product.countItem
-                countMinus?.invoke(product.copy(countItem = count - 1))
-                if (product.countItem == 0) {
-                    ls.removeAt(adapterPosition)
-                    notifyItemRemoved(adapterPosition)
+                if (product.countItem > 1) {
+                    countMinus?.invoke(product.copy(countItem = count - 1))
+                }else if(product.countItem==1){
+                    countMinus?.invoke(product.copy(cart = 0, countItem = 0))
+                    listener?.invoke()
                 }
             }
-            binding.likeButtonCart.setOnClickListener {
-                Log.d("pos", "bind: $adapterPosition")
 
-                likeState?.invoke(product)
-                if (product.favourite == 1) binding.likeButtonCart.setImageResource(R.drawable.checked_like_ic)
-                else binding.likeButtonCart.setImageResource(R.drawable.unchecked_like_ic)
-            }
         }
     }
 
@@ -87,5 +80,8 @@ class CartItemAdapter : RecyclerView.Adapter<CartItemAdapter.Holder>() {
 
     fun setLikeState(block: (data: HomeItemVertical) -> Unit) {
         favouriteListener = block
+    }
+    fun setOnListener(block:()->Unit){
+        listener= block
     }
 }

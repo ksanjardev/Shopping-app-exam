@@ -15,6 +15,7 @@ interface CartContract {
         fun showSumPrice(sum: Int)
         fun showTotalProductCount(totalCount: Int)
         fun showToast(msg: String)
+        fun setData(allCart: List<HomeItemVertical>)
 
     }
     interface Presenter{
@@ -25,5 +26,6 @@ interface CartContract {
         fun setData()
         fun setCartState(data: HomeItemVertical)
         fun getAllCartItems(): List<HomeItemVertical>
+        fun updateItems()
     }
 }

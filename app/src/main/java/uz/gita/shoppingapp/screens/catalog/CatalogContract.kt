@@ -8,8 +8,12 @@ interface CatalogContract {
     }
     interface View{
         fun showCatalogItems(items:List<CatalogItem>)
+        fun openProductScreen(catalogItem: CatalogItem)
+        fun openNewCategoryDialog()
     }
     interface Presenter{
         fun getAllCatalogItem()
+        fun catalogItemClick(catalogItem: CatalogItem)
+        fun addCategoryButtonClick()
     }
 }

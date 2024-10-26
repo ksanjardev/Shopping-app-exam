@@ -1,9 +1,7 @@
 package uz.gita.shoppingapp.screens.profile
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +23,11 @@ class ProfileScreen : Fragment(), ProfileContract.View {
     private lateinit var presenter: ProfileContract.Presenter
     private lateinit var profileAdapter: ProfileItemAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = ProfileScreenBinding.inflate(inflater)
         return binding.root
     }
@@ -40,13 +42,15 @@ class ProfileScreen : Fragment(), ProfileContract.View {
 
         profileAdapter.setItemListener { presenter.showMessage() }
 
-        binding.editButton.setOnClickListener{
+        binding.editButton.setOnClickListener {
             presenter.editProfileButtonClick()
         }
         binding.logOut.setOnClickListener { presenter.logOutButtonClick() }
 
-        binding.nameOfUser.text = AppDatabase.instance.userItem().getUserByNickName(LocalStorage.getNickName())?.nickName
-        binding.phoneOfUser.text = AppDatabase.instance.userItem().getUserByNickName(LocalStorage.getNickName())?.phoneNumber
+        binding.nameOfUser.text =
+            AppDatabase.instance.userItem().getUserByNickName(LocalStorage.getNickName())?.nickName
+        binding.phoneOfUser.text = AppDatabase.instance.userItem()
+            .getUserByNickName(LocalStorage.getNickName())?.phoneNumber
     }
 
     override fun showAllItem(items: List<ProfileItemEntity>) {
@@ -60,6 +64,7 @@ class ProfileScreen : Fragment(), ProfileContract.View {
     override fun showPersonalInfoScreen() {
         findNavController().navigate(R.id.action_profile_to_personalScreen)
     }
+
     override fun backToRegister() {
         LocalStorage.isUserSignedIn(false)
         requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))

@@ -21,4 +21,8 @@ class HomePresenter(val view: HomeContract.View) : HomeContract.Presenter {
         view.showFavouriteScreen()
     }
 
+    override fun getSearchWords(name: String) {
+        view.showAllItem(model.getSearchWords(name))
+    }
+
 }

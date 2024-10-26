@@ -48,6 +48,10 @@ class CartPresenter(val view: CartContract.View) : CartContract.Presenter {
         return model.getAllCart()
     }
 
+    override fun updateItems() {
+        view.setData(model.getAllCart())
+    }
+
     private fun sizeCartItem() {
         view.showBasketProductsSize(model.getAllCart().size)
     }

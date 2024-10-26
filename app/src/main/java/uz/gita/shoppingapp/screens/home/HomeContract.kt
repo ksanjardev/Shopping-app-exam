@@ -8,10 +8,11 @@ interface HomeContract {
         fun getAllItem(): ArrayList<HomeItemVertical>
         fun updateFavouriteData(id: Int, itemVertical: Int)
         fun updateCartData(data: HomeItemVertical)
+        fun getSearchWords(name: String) : List<HomeItemVertical>
     }
 
     interface View {
-        fun showAllItem(homeItemVertical: ArrayList<HomeItemVertical>)
+        fun showAllItem(homeItemVertical: List<HomeItemVertical>)
         fun showFavouriteScreen()
         fun showToast(id: Int, cartCount: Int)
     }
@@ -21,6 +22,7 @@ interface HomeContract {
         fun updateCartData(data: HomeItemVertical)
         fun getAllItem()
         fun favouriteItemClick()
+        fun getSearchWords(name: String)
     }
 
 

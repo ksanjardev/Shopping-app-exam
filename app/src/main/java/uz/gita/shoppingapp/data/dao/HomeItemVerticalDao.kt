@@ -28,10 +28,13 @@ interface HomeItemVerticalDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun favouriteItemState(itemVertical: HomeItemVertical)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun cartItemState(itemVertical: HomeItemVertical)
+//    @Update(onConflict = OnConflictStrategy.REPLACE)
+//    fun cartItemState(itemVertical: HomeItemVertical)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     fun updateProductCount(product:HomeItemVertical)
+
+    @Query("SELECT * FROM HomeItemVertical WHERE itemDescription LIKE :name || '%'")
+    fun searchItem(name: String): List<HomeItemVertical>
 
 }

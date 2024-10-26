@@ -1,10 +1,13 @@
 package uz.gita.shoppingapp.screens.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -31,6 +34,8 @@ class HomeScreen : Fragment(), HomeContract.View {
     private lateinit var horizontalItemAdapter: HomeHorizontalItemAdapter
     private lateinit var verticalItemAdapter: HomeItemVerticalAdapter
     private lateinit var binding: HomeScreenBinding
+    private val handler by lazy { Handler(Looper.getMainLooper()) }
+    private var query: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,15 +60,16 @@ class HomeScreen : Fragment(), HomeContract.View {
         verticalItemAdapter.setFavouriteListener { pos, item ->
             presenter.updateFavouriteData(pos, item)
         }
-        verticalItemAdapter.setCartListener {it->
+        verticalItemAdapter.setCartListener { it ->
             presenter.updateCartData(it)
         }
 
         presenter.getAllItem()
-        binding.goFavouriteScreenButton.setOnClickListener{presenter.favouriteItemClick()}
+        binding.goFavouriteScreenButton.setOnClickListener { presenter.favouriteItemClick() }
+        showSearchedWord()
     }
 
-    override fun showAllItem(homeItemVertical: ArrayList<HomeItemVertical>) {
+    override fun showAllItem(homeItemVertical: List<HomeItemVertical>) {
         verticalItemAdapter.submitList(homeItemVertical)
     }
 
@@ -75,4 +81,32 @@ class HomeScreen : Fragment(), HomeContract.View {
         Toast.makeText(requireContext(), " Item $id, product $cartCount", Toast.LENGTH_SHORT).show()
     }
 
+    private fun showSearchedWord() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+//                this@WordListScreen.query = query
+//                handler.removeCallbacksAndMessages(null)
+//                if (query == null) presenter.getAllWords()
+//                else presenter.getSearchWords(this@WordListScreen.query!!)
+//                dictAdapter
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                this@HomeScreen.query = newText
+                if (query.isNullOrEmpty()) {
+                    verticalItemAdapter.setSearchText("")
+                    verticalItemAdapter.submitList(emptyList())
+                    presenter.getAllItem()
+                } else {
+                    verticalItemAdapter.setSearchText(newText.toString())
+                    handler.removeCallbacksAndMessages(null)
+                    handler.postDelayed({
+                        presenter.getSearchWords(query!!)
+                    }, 100)
+                }
+                return true
+            }
+        })
+    }
 }

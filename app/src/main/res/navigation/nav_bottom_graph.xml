@@ -9,7 +9,7 @@
         android:id="@+id/home"
         android:name="uz.gita.shoppingapp.screens.home.HomeScreen"
         android:label="home_screen"
-        tools:layout="@layout/home_screen" >
+        tools:layout="@layout/home_screen">
         <action
             android:id="@+id/action_home_to_favouriteScreen"
             app:destination="@id/favouriteScreen" />
@@ -18,12 +18,22 @@
         android:id="@+id/catalog"
         android:name="uz.gita.shoppingapp.screens.catalog.CatalogScreen"
         android:label="catalog_screen"
-        tools:layout="@layout/catalog_screen" />
+        tools:layout="@layout/catalog_screen">
+        <action
+            android:id="@+id/action_catalog_to_productScreen"
+            app:destination="@id/productScreen" />
+        <action
+            android:id="@+id/action_catalog_to_newCatalogDialog"
+            app:destination="@id/newCatalogDialog" />
+        <action
+            android:id="@+id/action_catalog_to_productDialog"
+            app:destination="@id/productDialog" />
+    </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="uz.gita.shoppingapp.screens.profile.ProfileScreen"
         android:label="profile_screen"
-        tools:layout="@layout/profile_screen" >
+        tools:layout="@layout/profile_screen">
         <action
             android:id="@+id/action_profile_to_personalScreen"
             app:destination="@id/personalScreen" />
@@ -37,7 +47,7 @@
         android:id="@+id/favouriteScreen"
         android:name="uz.gita.shoppingapp.screens.favourite.FavouriteScreen"
         android:label="screen_favourite"
-        tools:layout="@layout/screen_favourite" >
+        tools:layout="@layout/screen_favourite">
         <action
             android:id="@+id/action_favouriteScreen_to_home"
             app:destination="@id/home" />
@@ -46,9 +56,35 @@
         android:id="@+id/personalScreen"
         android:name="uz.gita.shoppingapp.screens.personal_info.PersonalScreen"
         android:label="personal_screen"
-        tools:layout="@layout/personal_screen" >
+        tools:layout="@layout/personal_screen">
         <action
             android:id="@+id/action_personalScreen_to_profile"
             app:destination="@id/profile" />
     </fragment>
+    <fragment
+        android:id="@+id/productScreen"
+        android:name="uz.gita.shoppingapp.screens.items_by_category.ProductScreen"
+        android:label="product_screen"
+        tools:layout="@layout/product_screen">
+        <action
+            android:id="@+id/action_productScreen_to_catalog"
+            app:destination="@id/catalog" />
+        <argument
+            android:name="catalogItem"
+            app:argType="uz.gita.shoppingapp.data.entity.CatalogItem" />
+    </fragment>
+    <dialog
+        android:id="@+id/newCatalogDialog"
+        android:name="uz.gita.shoppingapp.screens.dialogs.NewCatalogDialog"
+        android:label="NewCatalogDialog"
+        tools:layout="@layout/add_catalog_dialog" />
+    <dialog
+        android:id="@+id/productDialog"
+        android:name="uz.gita.shoppingapp.screens.dialogs.ProductDialog"
+        android:label="ProductDialog"
+        tools:layout="@layout/add_product_dialog">
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+    </dialog>
 </navigation>

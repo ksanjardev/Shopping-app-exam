@@ -14,6 +14,10 @@ class HomeModel:HomeContract.Model {
     }
 
     override fun updateCartData(data: HomeItemVertical) {
-        this.itemVertical.updateProductCount(data.copy(cart = 1, countItem = 1))
+        this.itemVertical.updateProductCount(data)
+    }
+
+    override fun getSearchWords(name: String): List<HomeItemVertical> {
+        return itemVertical.searchItem(name)
     }
 }
