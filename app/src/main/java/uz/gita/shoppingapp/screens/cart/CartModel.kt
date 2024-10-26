@@ -9,16 +9,22 @@ class CartModel : CartContract.Model {
         return cartItems.getCartItems()
     }
 
-    override fun setProductCount(id: Int, count: Int) {
-        cartItems.updateProductCount(id, count)
+    override fun setProductCount(data: HomeItemVertical) {
+        cartItems.updateProductCount(data)
     }
 
-    override fun setLikeState(id: Int, newState: Int) {
-        cartItems.updateFavourite(id, newState)
+    override fun setLikeState(data: HomeItemVertical) {
+        cartItems.favouriteItemState(data)
     }
 
-    override fun setCartState(id: Int, newState: Int) {
-        cartItems.updateCart(id, newState)
+    override fun setCartState(data: HomeItemVertical) {
+        cartItems.updateProductCount(data)
+//        cartItems.cartItemState(data)
     }
 
+    override fun updateAll() {
+        cartItems.getCartItems().forEach { data->
+            cartItems.updateProductCount(data.copy(cart =  0, countItem = 0))
+        }
+    }
 }

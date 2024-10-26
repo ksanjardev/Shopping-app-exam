@@ -10,7 +10,7 @@ import uz.gita.shoppingapp.databinding.ItemHomeVerticalBinding
 class HomeItemVerticalAdapter : RecyclerView.Adapter<HomeItemVerticalAdapter.Holder>() {
     private val ls: ArrayList<HomeItemVertical> = arrayListOf()
     private var favouriteListener: ((Int, Int) -> Unit)? = null
-    private var cartListener: ((Int, Int) -> Unit)? = null
+    private var cartListener: ((HomeItemVertical) -> Unit)? = null
 
     fun submitList(item: ArrayList<HomeItemVertical>) {
         ls.clear()
@@ -24,7 +24,7 @@ class HomeItemVerticalAdapter : RecyclerView.Adapter<HomeItemVerticalAdapter.Hol
         init {
             binding.addToCartButton.setOnClickListener {
                 ls[adapterPosition].cart = ls[adapterPosition].cart.xor(1)
-                cartListener?.invoke(ls[adapterPosition].id, ls[adapterPosition].cart)
+                cartListener?.invoke(ls[adapterPosition])
                 notifyItemChanged(adapterPosition)
             }
             binding.favouriteButton.setOnClickListener {
@@ -67,7 +67,7 @@ class HomeItemVerticalAdapter : RecyclerView.Adapter<HomeItemVerticalAdapter.Hol
         favouriteListener = block
     }
 
-    fun setCartListener(block: (Int, Int) -> Unit) {
+    fun setCartListener(block: (HomeItemVertical) -> Unit) {
         cartListener = block
     }
 }

@@ -13,7 +13,7 @@ class HomeModel:HomeContract.Model {
         this.itemVertical.updateFavourite(id, itemVertical)
     }
 
-    override fun updateCartData(id:Int, itemVertical: Int) {
-        this.itemVertical.updateCart(id, itemVertical)
+    override fun updateCartData(data: HomeItemVertical) {
+        this.itemVertical.updateProductCount(data.copy(cart = 1, countItem = 1))
     }
 }

@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screens.personal_info.PersonalScreen">
+
+    <ImageView
+        android:id="@+id/buttonBack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_ic"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="15dp"
+        app:tint="@color/brand_name_color"/>
 
     <TextView
         android:id="@+id/first"
@@ -12,7 +25,7 @@
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/libre_regular"
         android:gravity="center"
-        android:text="Create an account"
+        android:text="Edit your profile"
         android:textColor="@color/brand_name_color"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -142,35 +155,13 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        app:layout_constraintTop_toBottomOf="@+id/sixth"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Already have an account? " />
-
-        <TextView
-            android:id="@+id/goToLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/logIn"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
-
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/editButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg"
-        android:text="Create account"
+        android:text="Edit profile"
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:textSize="20sp"
@@ -179,5 +170,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sixth"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

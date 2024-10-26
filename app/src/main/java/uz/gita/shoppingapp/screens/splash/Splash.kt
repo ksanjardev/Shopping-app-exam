@@ -17,11 +17,10 @@ class Splash : Fragment(R.layout.splash_screen) {
             }
 
             override fun onFinish() {
-                if (LocalStorage.getEnter()) {
+                if (LocalStorage.isUserSignedIn()){
                     findNavController().navigate(R.id.action_splash_to_bottomMenu)
-                } else {
-                    findNavController().navigate(R.id.action_splash_to_registerScreen)
-                }
+                }else findNavController().navigate(R.id.action_splash_to_registerScreen )
+
             }
 
         }.start()

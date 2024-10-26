@@ -6,6 +6,7 @@ import uz.gita.shoppingapp.data.database.AppDatabase
 import uz.gita.shoppingapp.data.database.LocalStorage
 import uz.gita.shoppingapp.data.entity.CatalogItem
 import uz.gita.shoppingapp.data.entity.HomeItemVertical
+import uz.gita.shoppingapp.data.entity.ProfileItemEntity
 
 class App : Application() {
     override fun onCreate() {
@@ -14,6 +15,28 @@ class App : Application() {
         AppDatabase.init(this)
         loadData()
         loadDefaultCategory()
+        loadDefaultProfileIcons()
+    }
+
+    private fun loadDefaultProfileIcons() {
+        val itemProfile = AppDatabase.instance.profileItem()
+        if (itemProfile.getAllItem().isEmpty()) {
+            val items = listOf(
+                ProfileItemEntity(0, R.drawable.bag_ic, "My purchases"),
+                ProfileItemEntity(0, R.drawable.contract_ic, "Stylish payment terms"),
+                ProfileItemEntity(0, R.drawable.shop_ic, "Be salesman"),
+                ProfileItemEntity(0, R.drawable.percent_ic, "My discounts"),
+                ProfileItemEntity(0, R.drawable.notification_ic, "Notifications"),
+                ProfileItemEntity(0, R.drawable.settings_ic, "Settings"),
+                ProfileItemEntity(0, R.drawable.car_ic, "Stylish auto support"),
+                ProfileItemEntity(0, R.drawable.comment_ic, "My comments"),
+                ProfileItemEntity(0, R.drawable.punkt_ic, "Open delivery point"),
+                ProfileItemEntity(0, R.drawable.usa_ic, "Language: English"),
+            )
+            items.forEach {
+                itemProfile.insertItem(it)
+            }
+        }
     }
 
     private fun loadDefaultCategory() {

@@ -23,7 +23,11 @@
         android:id="@+id/profile"
         android:name="uz.gita.shoppingapp.screens.profile.ProfileScreen"
         android:label="profile_screen"
-        tools:layout="@layout/profile_screen" />
+        tools:layout="@layout/profile_screen" >
+        <action
+            android:id="@+id/action_profile_to_personalScreen"
+            app:destination="@id/personalScreen" />
+    </fragment>
     <fragment
         android:id="@+id/cart"
         android:name="uz.gita.shoppingapp.screens.cart.CartScreen"
@@ -37,5 +41,14 @@
         <action
             android:id="@+id/action_favouriteScreen_to_home"
             app:destination="@id/home" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalScreen"
+        android:name="uz.gita.shoppingapp.screens.personal_info.PersonalScreen"
+        android:label="personal_screen"
+        tools:layout="@layout/personal_screen" >
+        <action
+            android:id="@+id/action_personalScreen_to_profile"
+            app:destination="@id/profile" />
     </fragment>
 </navigation>

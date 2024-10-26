@@ -15,6 +15,8 @@
             app:destination="@id/bottomMenu" />
         <action
             android:id="@+id/action_splash_to_registerScreen"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true"
             app:destination="@id/registerScreen" />
     </fragment>
     <fragment
@@ -37,6 +39,9 @@
         <action
             android:id="@+id/action_loginScreen_to_bottomMenu"
             app:destination="@id/bottomMenu" />
+        <action
+            android:id="@+id/action_loginScreen_to_registerScreen"
+            app:destination="@id/registerScreen" />
     </fragment>
     <fragment
         android:id="@+id/bottomMenu"

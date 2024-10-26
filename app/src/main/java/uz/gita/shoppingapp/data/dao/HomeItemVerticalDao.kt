@@ -16,9 +16,6 @@ interface HomeItemVerticalDao {
     @Query("UPDATE HomeItemVertical SET favourite = :favourite WHERE id = :id")
     fun updateFavourite(id: Int, favourite: Int)
 
-    @Query("UPDATE HomeItemVertical SET cart = :cart WHERE id = :id")
-    fun updateCart(id: Int, cart: Int)
-
     @Query("SELECT * FROM HomeItemVertical")
     fun getAllItem(): List<HomeItemVertical>
 
@@ -34,8 +31,7 @@ interface HomeItemVerticalDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun cartItemState(itemVertical: HomeItemVertical)
 
-
-    @Query("UPDATE HomeItemVertical SET countItem = :productCount WHERE id = :productId")
-    fun updateProductCount(productId: Int, productCount: Int)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateProductCount(product:HomeItemVertical)
 
 }

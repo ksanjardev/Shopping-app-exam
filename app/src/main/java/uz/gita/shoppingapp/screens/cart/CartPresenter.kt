@@ -4,36 +4,44 @@ import uz.gita.shoppingapp.data.entity.HomeItemVertical
 
 class CartPresenter(val view: CartContract.View) : CartContract.Presenter {
     private val model: CartContract.Model = CartModel()
-    override fun addButtonClick(id: Int, count: Int) {
-        model.setProductCount(id, count + 1)
+    override fun addButtonClick(data: HomeItemVertical) {
+        model.setProductCount(data)
+    }
+
+    override fun minusButtonClick(data: HomeItemVertical) {
+        model.setProductCount(data)
     }
 
 
-    override fun minusButtonClick(id: Int, count: Int) {
-        if (count == 1) {
-            model.setProductCount(id, 0)
-        }
-        model.setProductCount(id, count - 1)
-    }
+//    override fun minusButtonClick() {
+//        if (count == 1) {
+//            model.setProductCount()
+//        }
+//        model.setProductCount()
+//    }
 
     override fun buttonPayClick() {
         view.showToast("Coming soon ")
         val list = model.getAllCart()
         for (i in list.indices){
-            model.setCartState(list[i].id, 0)
-            model.setProductCount(list[i].id, 0)
-            model.setLikeState(list[i].id, 0)
+            model.updateAll()
         }
     }
 
-    override fun setLikeState(id: Int, newState: Int) {
-        var temp = if (newState == 1) 0 else 1
+    override fun setLikeState(data: HomeItemVertical) {
+        model.setLikeState(data)
     }
 
     override fun setData() {
         sizeCartItem()
         totalItemCount()
         totalProductPrice()
+    }
+
+    override fun setCartState(data: HomeItemVertical) {
+        val newCartState = if (data.cart == 1) 0 else 1
+        val updateData = data.copy(cart = newCartState)
+        model.setCartState(updateData)
     }
 
     override fun getAllCartItems(): List<HomeItemVertical> {

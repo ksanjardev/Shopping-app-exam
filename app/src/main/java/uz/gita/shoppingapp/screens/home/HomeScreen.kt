@@ -55,8 +55,8 @@ class HomeScreen : Fragment(), HomeContract.View {
         verticalItemAdapter.setFavouriteListener { pos, item ->
             presenter.updateFavouriteData(pos, item)
         }
-        verticalItemAdapter.setCartListener { pos, item ->
-            presenter.updateCartData(pos, item)
+        verticalItemAdapter.setCartListener {it->
+            presenter.updateCartData(it)
         }
 
         presenter.getAllItem()

@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import uz.gita.shoppingapp.R
 import uz.gita.shoppingapp.data.database.LocalStorage
 import uz.gita.shoppingapp.databinding.LoginScreenBinding
-import uz.gita.shoppingapp.util.goNextScreen
 
 
-class LoginScreen : Fragment() {
+class LoginScreen : Fragment(), LoginContract.View {
     private lateinit var binding: LoginScreenBinding
+    private lateinit var presenter: LoginContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -26,21 +25,36 @@ class LoginScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener { checkUser() }
-
-    }
-
-    private fun checkUser() {
-        if (binding.nickName.text.toString() == LocalStorage.getUserName() && binding.passwordUser.text.toString() == LocalStorage.getPassword()) {
-            findNavController().navigate(R.id.action_loginScreen_to_bottomMenu)
-        } else {
-            Toast.makeText(requireContext(), "User not found!", Toast.LENGTH_SHORT).show()
+        presenter = LoginPresenter(this)
+        binding.button.setOnClickListener {
+            presenter.nextButtonClick(
+                binding.nickName.text.toString().trim(),
+                binding.passwordUser.text.toString().trim()
+            )
         }
+
+        binding.goToLogin.setOnClickListener{
+            presenter.btnRegisterClicked()
+        }
+
     }
 
-    override fun onPause() {
-        super.onPause()
-        LocalStorage.setEnter(true)
+    override fun onStop() {
+        super.onStop()
+        presenter.saveNickName(binding.nickName.text.toString())
     }
+
+    override fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun openRegisterScreen() {
+        findNavController().navigate(R.id.action_loginScreen_to_registerScreen)
+    }
+
+    override fun openMainScreen() {
+        findNavController().navigate(R.id.action_loginScreen_to_bottomMenu)
+    }
+
 
 }

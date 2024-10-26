@@ -12,7 +12,6 @@ class FavouriteModel: FavouriteContract.Model {
     }
 
     override fun removeFavouriteItem(itemVertical: HomeItemVertical) {
-        Log.d("TTT", "removeFavouriteItem: $itemVertical")
         favouriteItems.favouriteItemState(itemVertical)
     }
 

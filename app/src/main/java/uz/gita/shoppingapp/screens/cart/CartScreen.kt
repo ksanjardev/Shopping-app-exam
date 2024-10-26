@@ -31,26 +31,26 @@ class CartScreen : Fragment(), CartContract.View {
         binding.cartRecyclerView.adapter = cartItemAdapter
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        cartItemAdapter.setCountPlus { id, count ->
-            presenter.addButtonClick(id, count)
+        cartItemAdapter.setCountPlus {
+            presenter.addButtonClick(it)
             showData()
         }
 
         showData()
 
-        cartItemAdapter.setCountMinus{id, count ->
-            presenter.minusButtonClick(id, count)
+        cartItemAdapter.setCountMinus {
+            presenter.minusButtonClick(it)
             showData()
         }
 
-        cartItemAdapter.setLikeState{id, count ->
-            presenter.setLikeState(id, count)
+        cartItemAdapter.setLikeState {
+            presenter.setLikeState(it)
             showData()
         }
 
-        binding.payButton.setOnClickListener{
+        binding.payButton.setOnClickListener {
             presenter.buttonPayClick()
-            cartItemAdapter.clearList()
+            cartItemAdapter.submitList(emptyList())
             binding.totalProductCount.text = "0"
             binding.totalPrice.text = "0"
             binding.totalProductCount.text = "0"
@@ -58,11 +58,10 @@ class CartScreen : Fragment(), CartContract.View {
 
     }
 
-    private fun showData(){
-        cartItemAdapter.submitList(presenter.getAllCartItems() )
+    private fun showData() {
+        cartItemAdapter.submitList(presenter.getAllCartItems())
         presenter.setData()
     }
-
 
     override fun showBasketProductsSize(size: Int) {
         binding.totalProductCount.text = size.toString()
@@ -79,6 +78,5 @@ class CartScreen : Fragment(), CartContract.View {
     override fun showToast(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
-
 
 }
