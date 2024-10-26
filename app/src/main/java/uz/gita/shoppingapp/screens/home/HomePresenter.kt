@@ -10,6 +10,7 @@ class HomePresenter(val view: HomeContract.View) : HomeContract.Presenter {
 
     override fun updateCartData(id:Int, itemVertical: Int) {
         model.updateCartData(id, itemVertical)
+        view.showToast(id, itemVertical)
     }
 
     override fun getAllItem() {

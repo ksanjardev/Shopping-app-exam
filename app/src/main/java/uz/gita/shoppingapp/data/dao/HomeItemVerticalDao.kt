@@ -25,6 +25,17 @@ interface HomeItemVerticalDao {
     @Query("SELECT * FROM HomeItemVertical WHERE favourite = 1")
     fun getFavoriteItems(): List<HomeItemVertical>
 
+    @Query("SELECT * FROM HomeItemVertical WHERE cart = 1")
+    fun getCartItems(): List<HomeItemVertical>
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun favouriteItemState(itemVertical: HomeItemVertical)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun cartItemState(itemVertical: HomeItemVertical)
+
+
+    @Query("UPDATE HomeItemVertical SET countItem = :productCount WHERE id = :productId")
+    fun updateProductCount(productId: Int, productCount: Int)
+
 }

@@ -24,7 +24,6 @@ class FavouriteItemsAdapter : RecyclerView.Adapter<FavouriteItemsAdapter.Holder>
 
         init {
             binding.favouriteButton.setOnClickListener {
-
                 if (ls[adapterPosition].favourite == 1) {
                     binding.favouriteButton.setImageResource(R.drawable.unchecked_like_ic)
                     favouriteItemListener?.invoke(ls[adapterPosition])

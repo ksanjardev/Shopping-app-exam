@@ -4,6 +4,7 @@ import android.app.Application
 import uz.gita.shoppingapp.R
 import uz.gita.shoppingapp.data.database.AppDatabase
 import uz.gita.shoppingapp.data.database.LocalStorage
+import uz.gita.shoppingapp.data.entity.CatalogItem
 import uz.gita.shoppingapp.data.entity.HomeItemVertical
 
 class App : Application() {
@@ -12,6 +13,23 @@ class App : Application() {
         LocalStorage.setSharedPreference(getSharedPreferences("Manager", MODE_PRIVATE))
         AppDatabase.init(this)
         loadData()
+        loadDefaultCategory()
+    }
+
+    private fun loadDefaultCategory() {
+        val itemCatalog = AppDatabase.instance.catalogItem()
+        if (itemCatalog.getAllItem().isEmpty()) {
+            val items = listOf(
+                CatalogItem(0, R.drawable.headphone_ic, "Electronics"),
+                CatalogItem(0, R.drawable.blender_ic, "Household appliances"),
+                CatalogItem(0, R.drawable.car_ic, "Auto goods"),
+                CatalogItem(0, R.drawable.ball_ic, "Sport and meditation"),
+                CatalogItem(0, R.drawable.hobby_ic, "Hobby and art"),
+            )
+            items.forEach {
+                itemCatalog.insertItem(it)
+            }
+        }
     }
 
     private fun loadData() {
@@ -26,7 +44,7 @@ class App : Application() {
                     13000,
                     1560,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -36,7 +54,7 @@ class App : Application() {
                     2499000,
                     299880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -46,7 +64,7 @@ class App : Application() {
                     41000,
                     4920,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -56,7 +74,7 @@ class App : Application() {
                     36000,
                     11880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -66,7 +84,7 @@ class App : Application() {
                     99000,
                     11880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -76,7 +94,7 @@ class App : Application() {
                     4899000,
                     587880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -86,7 +104,7 @@ class App : Application() {
                     199000,
                     23880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -96,7 +114,7 @@ class App : Application() {
                     99000,
                     11880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -106,7 +124,7 @@ class App : Application() {
                     13000,
                     1560,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -116,7 +134,7 @@ class App : Application() {
                     89000,
                     10680,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -126,7 +144,7 @@ class App : Application() {
                     599000,
                     71880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -136,7 +154,7 @@ class App : Application() {
                     349000,
                     41880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -146,7 +164,7 @@ class App : Application() {
                     3799000,
                     455880,
                     0,
-                    0
+                    0, 0
                 ),
                 HomeItemVertical(
                     0,
@@ -156,13 +174,12 @@ class App : Application() {
                     12000,
                     1440,
                     0,
-                    0
+                    0, 0
                 ),
             )
             items.forEach { product ->
                 itemVertical.insertItem(product)
             }
         }
-
     }
 }

@@ -15,6 +15,7 @@ class HomeItemVerticalAdapter : RecyclerView.Adapter<HomeItemVerticalAdapter.Hol
     fun submitList(item: ArrayList<HomeItemVertical>) {
         ls.clear()
         ls.addAll(item)
+        notifyDataSetChanged()
     }
 
     inner class Holder(private val binding: ItemHomeVerticalBinding) :
@@ -23,7 +24,7 @@ class HomeItemVerticalAdapter : RecyclerView.Adapter<HomeItemVerticalAdapter.Hol
         init {
             binding.addToCartButton.setOnClickListener {
                 ls[adapterPosition].cart = ls[adapterPosition].cart.xor(1)
-                cartListener?.invoke(ls[adapterPosition].id, ls[adapterPosition].favourite)
+                cartListener?.invoke(ls[adapterPosition].id, ls[adapterPosition].cart)
                 notifyItemChanged(adapterPosition)
             }
             binding.favouriteButton.setOnClickListener {

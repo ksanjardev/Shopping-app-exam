@@ -14,7 +14,6 @@ class FavouritePresenter(val view: FavouriteContract.View):FavouriteContract.Pre
 
     override fun favouriteItemClick(itemVertical: HomeItemVertical) {
         model.removeFavouriteItem(itemVertical.copy(favourite = 0))
-
     }
 
 }

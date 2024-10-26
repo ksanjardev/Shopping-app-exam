@@ -12,6 +12,7 @@ interface HomeContract {
     interface View{
         fun showAllItem(homeItemVertical: ArrayList<HomeItemVertical>)
         fun showFavouriteScreen()
+        fun showToast(id: Int, cartCount: Int)
     }
     interface Presenter{
         fun updateFavouriteData(id:Int, itemVertical: Int)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -68,6 +69,10 @@ class HomeScreen : Fragment(), HomeContract.View {
 
     override fun showFavouriteScreen() {
         findNavController().navigate(R.id.action_home_to_favouriteScreen)
+    }
+
+    override fun showToast(id: Int, cartCount: Int) {
+        Toast.makeText(requireContext(), " Item $id, product $cartCount", Toast.LENGTH_SHORT).show()
     }
 
 }

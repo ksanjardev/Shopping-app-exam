@@ -13,5 +13,6 @@ data class HomeItemVertical(
     val newPrice: Int,
     val monthlyPayment: Int,
     var favourite: Int,
-    var cart: Int
+    var cart: Int,
+    var countItem: Int
 )

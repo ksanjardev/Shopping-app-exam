@@ -18,6 +18,7 @@
             app:cardCornerRadius="10dp">
 
             <ImageView
+                android:id="@+id/imageCart"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:src="@drawable/item_vertical_1" />
@@ -27,6 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="15dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -36,6 +38,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/newPriceCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/libre_regular"
@@ -47,6 +50,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/oldpriceCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/libre_regular"
@@ -55,6 +59,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/monthlyPaymentCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -64,12 +69,14 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/itemDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/libre_bold"
                 android:text="Description of the product blah blah blah blah" />
 
             <TextView
+                android:id="@+id/oneItemCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -95,6 +102,7 @@
                         app:cardCornerRadius="10dp">
 
                         <ImageView
+                            android:id="@+id/minusProduct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/add_ic" />
@@ -117,6 +125,7 @@
                         app:cardCornerRadius="10dp">
 
                         <ImageView
+                            android:id="@+id/addProduct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/add_ic" />
@@ -125,6 +134,12 @@
 
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-
+        <ImageView
+            android:id="@+id/likeButtonCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/unchecked_like_ic"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
